@@ -2,7 +2,11 @@
   <% @events.each do |event| %>
     <li>
       <strong><%= event.name %></strong>
-      in <%= event.location %>: <%= number_to_currency(event.price, precision: 0)%>
+      in <%= event.location %>: 
+      <%= price(event) %>
     </li>
+    <p><%= truncate(event.description, length: 35, separator: " ") %>
+    </p>
+    <p><%= format_time(event)  %></p>
   <% end %>
 </ul>
