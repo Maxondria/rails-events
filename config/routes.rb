@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   # patch "events/:id" => "events#update"
   # delete "events/:id" => "events#destroy"
   resources :events
+  resources :registrations
 end
