@@ -1,4 +1,5 @@
-<%= form_with model: event, local: true do |f|  %>
+<%= form_with model: event, local: true do |f| %>
+  <%= render "shared/errors", object: event %>
   <%= f.label :name %>
   <%= f.text_field :name, autofocus: true %>
   <%= f.label :description %>
@@ -8,10 +9,10 @@
   <%= f.label :price %>
   <%= f.text_field :price %>
   <%= f.label :starts_at %>
-  <%= f.datetime_select :starts_at, {ampm: true}, {class: "datetime"}  %>
+  <%= f.datetime_select :starts_at, { ampm: true }, { class: "datetime" } %>
   <%= f.label :capacity %>
   <%= f.number_field :capacity %>
-  <%= f.label :image_file_name%>
-  <%= f.text_field :image_file_name  %>
+  <%= f.label :image_file_name %>
+  <%= f.text_field :image_file_name %>
   <%= f.submit %>
 <% end %>
