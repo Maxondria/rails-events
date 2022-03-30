@@ -15,7 +15,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if @event.update(event_params)
-      redirect_to @event
+      redirect_to @event, notice: "Event successfully updated!"
     else
       render :edit # render the edit template of the same controller
     end
@@ -29,7 +29,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
 
     if @event.save
-      redirect_to @event
+      redirect_to @event, notice: "Event successfully created!"
     else
       render :new # render the new template of the same controller
     end
@@ -39,7 +39,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if @event.destroy
-      redirect_to events_path
+      redirect_to events_path, alert: "Event successfully deleted!"
     else
       render :show # render the show template of the same controller
     end
