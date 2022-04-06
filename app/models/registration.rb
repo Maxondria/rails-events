@@ -13,5 +13,5 @@ class Registration < ApplicationRecord
     "Other",
   ]
 
-  validates :how_heard, inclusion: { in: HOW_HEARD_OPTIONS }
+  validates :how_heard, inclusion: { in: HOW_HEARD_OPTIONS, message: "option provided is invalid" }
 end
