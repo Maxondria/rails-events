@@ -7,4 +7,8 @@ Rails.application.routes.draw do
 
   resources :users
   get "signup" => "users#new"
+
+  # Notice this is all in singular form, we don't need to specify the id
+  resource :session, only: [:new, :create, :destroy]
+  get "signin" => "sessions#new"
 end

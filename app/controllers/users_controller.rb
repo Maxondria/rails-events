@@ -27,6 +27,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      session[:user_id] = @user.id
       redirect_to @user, notice: "Thank you for signing up!"
     else
       render :new
@@ -35,9 +36,10 @@ class UsersController < ApplicationController
 
   def destroy
     if @user.destroy
+      session[:user_id] = nil
       redirect_to events_url, danger: "Account was successfully deleted."
     else
-      flash[:alert] = "There was a problem deleting your account."
+      flash.now[:alert] = "There was a problem deleting your account."
       render :show
     end
   end
