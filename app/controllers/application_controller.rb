@@ -8,8 +8,13 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
+  def current_user?(user)
+    current_user == user
+  end
+
   # declares this method as part of the view helper methods
   helper_method :current_user
+  helper_method :current_user?
 
   def require_signin
     unless current_user
