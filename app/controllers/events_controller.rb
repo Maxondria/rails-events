@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
-  before_action :require_signin, except: [:index, :show]
-  before_action :require_admin, except: [:index, :show]
+  before_action :require_signin, except: %i[index show]
+  before_action :require_admin, except: %i[index show]
 
   def index
     @events = Event.upcoming
@@ -8,6 +8,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @likers = @event.likers
   end
 
   def edit
@@ -18,7 +19,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if @event.update(event_params)
-      redirect_to @event, notice: "Event successfully updated!"
+      redirect_to @event, notice: 'Event successfully updated!'
     else
       render :edit # render the edit template of the same controller
     end
@@ -32,7 +33,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
 
     if @event.save
-      redirect_to @event, notice: "Event successfully created!"
+      redirect_to @event, notice: 'Event successfully created!'
     else
       render :new # render the new template of the same controller
     end
@@ -42,7 +43,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if @event.destroy
-      redirect_to events_path, alert: "Event successfully deleted!"
+      redirect_to events_path, alert: 'Event successfully deleted!'
     else
       render :show # render the show template of the same controller
     end
@@ -53,6 +54,14 @@ class EventsController < ApplicationController
   def event_params
     params
       .require(:event)
-      .permit(:name, :description, :location, :price, :image_file_name, :capacity, :starts_at)
+      .permit(
+        :name,
+        :description,
+        :location,
+        :price,
+        :image_file_name,
+        :capacity,
+        :starts_at,
+      )
   end
 end
