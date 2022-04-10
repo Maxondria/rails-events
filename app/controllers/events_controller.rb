@@ -11,6 +11,7 @@ class EventsController < ApplicationController
     @likers = @event.likers
 
     @like = current_user.likes.find_by(event_id: @event.id) if current_user
+    @categories = @event.categories
   end
 
   def edit
@@ -64,6 +65,7 @@ class EventsController < ApplicationController
         :image_file_name,
         :capacity,
         :starts_at,
+        category_ids: [],
       )
   end
 end

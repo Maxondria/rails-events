@@ -10,7 +10,6 @@ class LikesController < ApplicationController
       # same as: @event.likes.create!(user: current_user)
       # same as: current_user.likes.create!(event: @event)
       # same as: like = Like.new(user: current_user, event: @event).save
-      event.save
     end
 
     redirect_to @event, notice: 'Thanks for liking!'
@@ -19,10 +18,7 @@ class LikesController < ApplicationController
   def destroy
     event = Event.find(params[:event_id])
 
-    if event.likers.include?(current_user)
-      event.likers.delete(current_user)
-      event.save
-    end
+    event.likers.delete(current_user) if event.likers.include?(current_user)
 
     # OR
 

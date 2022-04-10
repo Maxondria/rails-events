@@ -31,6 +31,16 @@
         <% end %>
       </ul>
     <% end %>
+    <% if @categories %>
+      <h4>Categories</h4>
+      <ul>
+        <% @categories.each do |category| %>
+          <li>
+            <%= category.name %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   </aside>
 </section>
 <% if current_user_admin? %>
