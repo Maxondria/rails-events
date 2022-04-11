@@ -15,7 +15,8 @@ class RegistrationsController < ApplicationController
     @registration.user = current_user
 
     if @registration.save
-      redirect_to event_registrations_path(@event), notice: "Thanks for registering!"
+      redirect_to event_registrations_path(@event),
+                  notice: 'Thanks for registering!'
     else
       render :new
     end
@@ -24,12 +25,10 @@ class RegistrationsController < ApplicationController
   private
 
   def registration_params
-    params
-      .require(:registration)
-      .permit(:how_heard)
+    params.require(:registration).permit(:how_heard)
   end
 
   def set_event
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by!(slug: params[:event_id])
   end
 end
