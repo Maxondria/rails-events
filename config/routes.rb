@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :categories
   root 'events#index'
+  get 'events/filter/:filter' => 'events#index', :as => :filtered_events
 
   resources :events do
     resources :registrations
@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   # Notice this is all in singular form, we don't need to specify the id
   resource :session, only: %i[new create destroy]
   get 'signin' => 'sessions#new'
+
+  resources :categories
 end

@@ -15,6 +15,12 @@ class Event < ApplicationRecord
               message: 'must be a JPG or PNG image',
             }
 
+  scope :past, -> { where('starts_at < ?', Time.now).order('starts_at') }
+  scope :upcoming, -> { where('starts_at > ?', Time.now).order('starts_at') }
+  scope :free,
+        -> { upcoming.where(price: 0.0).or(where(price: nil)).order(:name) }
+  scope :recent, ->(max = 3) { past.limit(max) }
+
   def free?
     price.blank? || price.zero?
   end
@@ -22,9 +28,5 @@ class Event < ApplicationRecord
   def sold_out?
     spaces_left = capacity - registrations.size
     spaces_left.negative? || spaces_left.zero?
-  end
-
-  def self.upcoming
-    where('starts_at > ?', Time.now).order('starts_at')
   end
 end
